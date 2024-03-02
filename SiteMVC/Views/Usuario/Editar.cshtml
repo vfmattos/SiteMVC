@@ -1,0 +1,43 @@
+﻿@using SiteMVC.Enums;
+@model UsuarioModel
+
+@{
+    ViewData["Title"] = "Editar usuários";
+}
+
+<div class="text-center">
+    <h2>Editar Usuário</h2>
+
+    <form asp-controller="Usuario" asp-action="Editar" method="post">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input asp-for="@Model.Nome" type="text" class="form-control" placeholder="Digite seu nome">
+            @Html.ValidationMessageFor(x => x.Nome)
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input asp-for="@Model.Email" type="text" class="form-control" placeholder="Digite seu email">
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+        <div class="form-group">
+            <label for="login">Login</label>
+            <input asp-for="@Model.Login" type="text" class="form-control" placeholder="Digite seu login">
+            @Html.ValidationMessageFor(x => x.Login)
+        </div>
+        <div class="form-group">
+            <label for="perfil">Perfil</label>
+            <select asp-for="@Model.Perfil" class="form-control">
+                <option value="">Selecione</option>
+                <option value="@PerfilEnums.Admin">Administrador</option>
+                <option value="@PerfilEnums.Padrao">Padrão</option>
+            </select>
+            @Html.ValidationMessageFor(x => x.Perfil)
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Editar</button>
+    </form>
+    <br />
+
+
+    <div>
+        <a class="btn btn-secondary btn-block" role="button" asp-controller="Usuario" asp-action="Index">Voltar</a>
+    </div>

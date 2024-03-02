@@ -1,0 +1,36 @@
+﻿@model RedefinirSenhaUsuario
+
+@{
+    Layout = "_LayoutDeslogado";
+    ViewData["Title"] = "Login";
+}
+
+<div style="background-color:lightgray; padding: 20px; border-radius: 30px" >
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <form asp-action="RedefinirSenha" asp-controller="Login" method="post">
+        <div class="form-group">
+            <label for="login">Login</label>
+            <input asp-for="@Model.Login" type="text" class="form-control" id="login" placeholder="Insira o Login">
+            @Html.ValidationMessageFor(x => x.Login)
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input asp-for="@Model.Email" type="text" class="form-control" id="email" placeholder="Insira o Email">
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Redefinir</button>
+
+    </form>
+
+    <br />
+
+    <a class="btn btn-secondary btn-block" role="button" asp-controller="Login" asp-action="Index">Voltar</a>
+</div>

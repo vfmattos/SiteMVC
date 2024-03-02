@@ -1,0 +1,70 @@
+﻿@model List<ContatoModel>
+
+@{
+    ViewData["Title"] = "Listagem de contatos";
+}
+
+<div class="text-center">
+
+    @if(TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+    <br />
+
+
+<h2>Listagem de contatos</h2>
+
+    <table class="table" id="table-contatos">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Email</th>
+            <th scope="col">Celular</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+            @if(Model != null && Model.Any())
+            {
+                @foreach (var contato in Model)
+                {
+                    <tr>
+                        <th scope="row">@contato.Id</th>
+                        <td>@contato.Nome</td>
+                        <td>@contato.Email</td>
+                        <td>@contato.Celular</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a role="button" asp-route-id="@contato.Id" class="btn btn-primary" asp-controller="Contato" asp-action="Editar">Editar</a>
+                                <a role="button" asp-route-id="@contato.Id" class="btn btn-danger" asp-controller="Contato" asp-action="Apagar">Apagar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <br />
+                <h3>Não há elementos registrados na tabela!</h3>
+            }
+
+        </tbody>
+</table>
+</div>
+
+<div>
+    <a class="btn btn-primary" role="button" asp-controller="Contato" asp-action="Criar">Adicionar Contato</a>
+</div>

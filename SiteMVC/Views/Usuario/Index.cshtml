@@ -1,0 +1,74 @@
+﻿@model List<UsuarioModel>
+
+@{
+    ViewData["Title"] = "Listagem de usuarios";
+}
+
+<div class="text-center">
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+    <br />
+
+
+    <h2>Listagem de usuarios</h2>
+
+    <table class="table" id="table-usuarios">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Login</th>
+                <th scope="col">Email</th>
+                <th scope="col">Perfil</th>
+                <th scope="col">Data de cadastro</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var usuario in Model)
+                {
+                    <tr>
+                        <td>@usuario.Id</td>
+                        <td>@usuario.Nome</td>
+                        <td>@usuario.Login</td>
+                        <td>@usuario.Email</td>
+                        <td>@(usuario.Perfil == SiteMVC.Enums.PerfilEnums.Admin ? "Administrador" : "Padrão")</td>
+                        <td>@usuario.DataCadastro</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a role="button" asp-route-id="@usuario.Id" class="btn btn-primary" asp-controller="Usuario" asp-action="Editar">Editar</a>
+                                <a role="button" asp-route-id="@usuario.Id" class="btn btn-danger" asp-controller="Usuario" asp-action="Apagar">Apagar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <br />
+                <h3>Não há elementos registrados na tabela!</h3>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a class="btn btn-primary" role="button" asp-controller="Usuario" asp-action="Criar">Adicionar Contato</a>
+</div>

@@ -1,0 +1,40 @@
+﻿@model LoginModel
+
+@{
+    Layout = "_LayoutDeslogado";
+    ViewData["Title"] = "Login";
+}
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+        @TempData["MensagemErro"]
+    </div>
+}
+
+<form asp-action="Entrar" asp-controller="Login" method="post">
+    <div class="form-group">
+        <label for="login">Login</label>
+        <input asp-for="@Model.Login" type="text" class="form-control" id="login" placeholder="Insira o Login">
+        @Html.ValidationMessageFor(x => x.Login)
+    </div>
+    <div class="form-group">
+        <label for="senha">Senha</label>
+        <input asp-for="@Model.Senha" type="password" class="form-control" id="senha" placeholder="Entre com a Senha">
+        @Html.ValidationMessageFor(x => x.Senha)
+    </div>
+    
+    <p>Esqueceu a senha? <a asp-controller="Login" asp-action="RedefinirSenha">Clique aqui para redefinir a senha.</a></p>
+
+    <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+
+</form>
